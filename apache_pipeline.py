@@ -20,7 +20,8 @@ def run_pipeline(argv=None):
   known_args, pipeline_args = parser.parse_known_args(argv)
 
   pipeline_options = PipelineOptions(pipeline_args)
-
+  
+  regex_value = r'Exercise, '
   # The pipeline will be run on exiting the 'with' block.    
   with beam.Pipeline(options=pipeline_options) as pipeline:
     # Read data from a source (e.g., CSV file)
@@ -31,11 +32,12 @@ def run_pipeline(argv=None):
         
     # Apply transformations to process the data
     processed_data = (
-            data
-            
-            | 'TransformData' >> beam.Map(lambda x: x.upper())
-            | 'Strip' >> beam.Map(lambda x: x.strip(','))
+            data 
+            # |'TransformData' >> beam.Map(lambda x: x.upper())
+            |'Strip' >> beam.Map(lambda x: x.strip(','))
             |'Strip header' >> beam.Map(lambda text: text.strip('# \n'))
+            |'StripExerciseName' >> beam.Map(lambda ex: ex.strip('Exercise, '))
+            |'CleanExerciseName' >> beam.Regex.replace_all(regex_value, '')
         )
         
         # Write the processed data to a sink (e.g., text file)
