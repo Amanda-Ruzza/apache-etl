@@ -36,7 +36,7 @@ def run_pipeline(argv=None):
             # |'TransformData' >> beam.Map(lambda x: x.upper())
             |'Strip' >> beam.Map(lambda x: x.strip(','))
             |'Strip header' >> beam.Map(lambda text: text.strip('# \n'))
-            |'StripExerciseName' >> beam.Map(lambda ex: ex.strip('Exercise, '))
+            # |'StripExerciseName' >> beam.Map(lambda ex: ex.strip('Exercise, '))
             |'CleanExerciseName' >> beam.Regex.replace_all(regex_value, '')
         )
         
