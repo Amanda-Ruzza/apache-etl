@@ -26,7 +26,7 @@ def run_pipeline(argv=None):
     # Read data from a source (e.g., CSV file)
     data = (
             pipeline
-            | 'ReadFromCSV' >> beam.io.ReadFromText('StrengthLog.csv')
+            | 'ReadFromCSV' >> beam.io.ReadFromText(known_args.input)
         )
         
     # Apply transformations to process the data
