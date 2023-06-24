@@ -6,7 +6,7 @@ from apache_beam.options.pipeline_options import PipelineOptions
 
 def run_pipeline(argv=None):
 
-  """Main entry point; defines and runs the wordcount pipeline."""
+  """Main entry point; defines and runs the CSV parser pipeline."""
   parser = argparse.ArgumentParser()
   parser.add_argument(
     '--input',
